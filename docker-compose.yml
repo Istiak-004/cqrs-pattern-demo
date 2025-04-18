@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  postgres_command:
+    image: postgres:13
+    environment:
+      POSTGRES_USER : cqrs
+      POSTGRES_PASSWORD : cqrs123
+      POSTGRES_DB : cqrs_command
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-command-data:/var/lib/postgresql/data
+  postgres_query:
+    image: postgres:13
+    environment:
+      POSTGRES_USER : cqrs
+      POSTGRES_PASSWORD : cqrs123
+      POSTGRES_DB : cqrs_query
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-query-data:/var/lib/postgresql/data    
+  kafka:
+    image: confluentinc/cp-kafka:7.0.1
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+volumes:
+  postgres-command-data:
+  postgres-query-data:    
