@@ -40,4 +40,22 @@ func NewKafkaReader(brokers []string, topic, groupID string) *kafka.Reader {
 		Topic:   topic,
 		GroupID: groupID,
 	})
+
 }
+
+// func ensureTopicExists(admin *kafka.AdminClient, topic string) error {
+// 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+// 	defer cancel()
+
+// 	_, err := admin.CreateTopics(ctx, []kafka.TopicSpecification{{
+// 		Topic:             topic,
+// 		NumPartitions:     3,
+// 		ReplicationFactor: 1,
+// 		ConfigEntries:     map[string]string{"cleanup.policy": "compact"},
+// 	}})
+
+// 	if err != nil && !errors.Is(err, kafka.ErrTopicAlreadyExists) {
+// 		return fmt.Errorf("failed to create topic %s: %w", topic, err)
+// 	}
+// 	return nil
+// }
