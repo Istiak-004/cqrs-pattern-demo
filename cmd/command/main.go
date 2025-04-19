@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -27,7 +28,11 @@ func main() {
 	defer commandDB.Close()
 
 	// Initialize event bus
-	eventBus, err := event.NewKafkaEventBus([]string{"localhost:9092"})
+	eventBus, err := event.NewKafkaEventBus([]string{"localhost:29092"})
+	fmt.Println("=============================")
+	fmt.Println(eventBus, err)
+	fmt.Println("=============================")
+
 	if err != nil {
 		log.Fatal(err)
 	}

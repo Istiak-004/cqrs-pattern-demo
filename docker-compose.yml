@@ -23,6 +23,8 @@ services:
       - postgres-query-data:/var/lib/postgresql/data    
   kafka:
     image: confluentinc/cp-kafka:7.0.1
+    ports:
+    - "29092:9092"  # HostPort:ContainerPort
     depends_on:
       - zookeeper
     environment:

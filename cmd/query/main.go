@@ -47,7 +47,7 @@ func main() {
 	}
 
 	// Initialize Kafka consumer
-	reader := event.NewKafkaReader([]string{"localhost:9092"}, "user-events", "query-service-group")
+	reader := event.NewKafkaReader([]string{"localhost:29092"}, "user-events", "query-service-group")
 	defer reader.Close()
 
 	// Start event consumer
